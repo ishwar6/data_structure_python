@@ -1,6 +1,7 @@
 class Node:
     """
     A node in a singly linked list.
+    
 
     Attributes:
     data (Any): The data stored in the node.
