@@ -5,8 +5,7 @@
 
 class Stack:
     """
-    A class to represent a stack.
-
+    A class to represent a stack
     Attributes:
     items (list): The items in the stack.
     """
