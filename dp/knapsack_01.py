@@ -85,3 +85,58 @@ W = 4                 # Maximum weight capacity of the knapsack
 
 max_profit = knapsack_memo(wt, profit, W)
 print(f"Maximum profit using recursion with memoization: {max_profit}")
+
+
+def knapsack_memo_optimized(wt, profit, W):
+    memo = {}
+
+    def knapsack_recursive(n, W):
+        # Base Case
+        if n == 0 or W == 0:
+            return 0
+        
+        # Check if the value is already computed and stored in the memo
+        if (n, W) in memo:
+            return memo[(n, W)]
+        
+        # If weight of the nth item is more than W, it cannot be included
+        if wt[n-1] > W:
+            memo[(n, W)] = knapsack_recursive(n-1, W)
+        else:
+            # Return the maximum of two cases:
+            # (1) nth item included
+            # (2) nth item not included
+            memo[(n, W)] = max(profit[n-1] + knapsack_recursive(n-1, W-wt[n-1]),
+                               knapsack_recursive(n-1, W))
+        
+        return memo[(n, W)]
+
+    return knapsack_recursive(len(wt), W)
+
+# Example usage
+wt = [1, 2, 3]        # Weights of the items
+profit = [2, 3, 5]    # Profits of the items
+W = 4                 # Maximum weight capacity of the knapsack
+
+max_profit = knapsack_memo_optimized(wt, profit, W)
+print(f"Maximum profit using optimized memoization: {max_profit}")
+
+
+def knapsack_optimized(wt, profit, W):
+    n = len(wt)
+    dp = [0] * (W + 1)
+    
+    for i in range(n):
+        # Traverse backwards to avoid overwriting results that are needed for computation
+        for j in range(W, wt[i] - 1, -1):
+            dp[j] = max(dp[j], profit[i] + dp[j - wt[i]])
+    
+    return dp[W]
+
+# Example usage
+wt = [1, 2, 3]        # Weights of the items
+profit = [2, 3, 5]    # Profits of the items
+W = 4                 # Maximum weight capacity of the knapsack
+
+max_profit = knapsack_optimized(wt, profit, W)
+print(f"Maximum profit using optimized 1D DP: {max_profit}")
