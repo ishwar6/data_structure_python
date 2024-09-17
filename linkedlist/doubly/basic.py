@@ -7,7 +7,6 @@ class DoublyLinkedListNode:
     next (DoublyLinkedListNode): The reference to the next node in the list.
     prev (DoublyLinkedListNode): The reference to the previous node in the list.
     """
-
     def __init__(self, data):
         """
         Initialize the doubly linked list node with data, and set next and prev as None.
